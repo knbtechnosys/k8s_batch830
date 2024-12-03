@@ -11,7 +11,7 @@ spec:
      metadata:
        name: nginx-my  
        labels:
-          app: webserver     # change to myonlineapp once and webserver once
+          app: myonlineapp     # change to myonlineapp once and webserver once
      spec:
         containers:
         - name: myonlineapp-container
