@@ -9,10 +9,10 @@ spec:
    template:                                     
      metadata:
        labels:
-          app:  myvertexapp
+          app:  myvertexapps
      spec:
         containers:
         - name:  myvertexapp-container
-          image: nbktechnosys/myverteximage10mar23:1
+          image: nbktechnosys/myjavaimages2dec22:1
           ports:
           - containerPort: 8080 
