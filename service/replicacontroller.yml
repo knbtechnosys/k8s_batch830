@@ -3,16 +3,19 @@ kind: ReplicationController
 metadata:
   name:  myvertexapp-rc
 spec:
-   replicas: 5
+   replicas: 3
    selector: 
      app:  myvertexapp
+     version: 2.0.1
    template:                                     
      metadata:
        labels:
           app:  myvertexapp
+          version: 2.0.1
      spec:
         containers:
         - name:  myvertexapp-container
-          image: nbktechnosys/myjavaimages2dec22:2
+          image: nbktechnosys/myjavaimages2dec22:1
           ports:
           - containerPort: 8080 
+            
