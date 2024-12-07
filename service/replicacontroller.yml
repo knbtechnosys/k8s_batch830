@@ -9,7 +9,7 @@ spec:
    template:                                     
      metadata:
        labels:
-          app:  myvertexapps
+          app:  myvertexapp
      spec:
         containers:
         - name:  myvertexapp-container
