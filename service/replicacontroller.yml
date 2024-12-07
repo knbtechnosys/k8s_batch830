@@ -10,7 +10,7 @@ spec:
    template:                                     
      metadata:
        labels:
-          app: myonlineappss
+          app: myonlineapp
           version: 2.6.1
      spec:
         containers:
