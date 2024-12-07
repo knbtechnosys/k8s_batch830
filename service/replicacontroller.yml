@@ -6,15 +6,15 @@ spec:
    replicas: 3
    selector: 
      app: myonlineapp
-     version: 2.6.1
+     version: 2.6.2
    template:                                     
      metadata:
        labels:
           app: myonlineapp
-          version: 2.6.1
+          version: 2.6.2
      spec:
         containers:
         - name: myonlineapp-container
-          image: nbktechnosys/myjavaimages2dec22:2
+          image: nbktechnosys/myjavaimages2dec22:1
           ports:
           - containerPort: 8080 
