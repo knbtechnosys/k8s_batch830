@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind : CronJob
+metadata:
+  name: my-job
+spec:
+  successfulJobsHistoryLimit: 5
+  schedule: "*/2 * * * *"
+  jobTemplate:
+    spec:
+      template: 
+         spec: 
+          containers:
+          - name: my-conatiner
+            image: busybox
+            args: 
+            - /bin/sh
+            - -c 
+            - date; echo hello to corn job 
+          restartPolicy: OnFailure
