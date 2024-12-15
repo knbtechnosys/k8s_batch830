@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind : job
+metadata:
+  name: my-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: my-conatiner
+        image: ubuntu
+        command: ["/bin/bash"]
+        args: ["-c","echo welcome to kubernetes job"]
+      restartPolicy: Never
