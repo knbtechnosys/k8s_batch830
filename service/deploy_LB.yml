@@ -1,34 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: aws-load-balancer-controller
+  namespace: kube-system
   labels:
-    app: nginx
+    app.kubernetes.io/name: aws-load-balancer-controller
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: myvertexapp
+      app.kubernetes.io/name: aws-load-balancer-controller
   template:
     metadata:
       labels:
-        app: myvertexapp
+        app.kubernetes.io/name: aws-load-balancer-controller
     spec:
-      volumes:
-      - name: shared-date-logs  # Creating a shared volume for my containers
-        emptyDir: {}
+      serviceAccountName: aws-load-balancer-controller
       containers:
-      - name: container-writing-dates # Name of first container
-        image: alpine # Image to use for first container
-        command: ["/bin/sh"]
-        args: ["-c", "while true; do date >> /var/log/index.html; sleep 10;done"] # writing date every 10secs
+      - name: aws-load-balancer-controller
+        image: amazon/aws-alb-ingress-controller:v2.5.0
+        args:
+        - --cluster-name=ekscluster
+        - --ingress-class=alb
+        - --webhook-bind-port=443
         volumeMounts:
-        - name: shared-date-logs
-          mountPath: /var/log # Mounting log dir so app can write to it.
-      - name: container-serving-dates # Name of second container
-        image: nginx:1.19.0 # Image for second container
-        ports:
-        - containerPort: 80 # Defining what port to use.
-        volumeMounts:
-        - name: shared-date-logs
-          mountPath: /usr/share/nginx/html # Where nginx will serve the written file
+        - name: cert
+          mountPath: /etc/webhook/cert
+          readOnly: true
+      volumes:
+      - name: cert
+        secret:
+          secretName: aws-load-balancer-webhook-tls
